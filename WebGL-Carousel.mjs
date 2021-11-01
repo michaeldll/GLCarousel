@@ -53,7 +53,7 @@ class WebGLCarouselItem {
 }
 
 class WebGLCarousel extends Rect {
-  constructor(element, heightOffset = 0.02 * window.innerWidth) {
+  constructor(element, heightOffset = 0) {
     super(element);
     this.element = element;
     this.heightOffset = heightOffset;
