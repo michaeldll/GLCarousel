@@ -6,7 +6,7 @@ import { Mesh } from "https://unpkg.com/ogl@0.0.74/src/core/Mesh.js";
 import { Vec2 } from "https://unpkg.com/ogl@0.0.74/src/math/Vec2.js";
 
 class WebGLCarouselItem {
-  constructor(carousel, element, heightOffset = 0.02 * window.innerWidth) {
+  constructor(carousel, element, heightOffset = 0) {
     this.element = element;
 
     this.carousel = carousel;
