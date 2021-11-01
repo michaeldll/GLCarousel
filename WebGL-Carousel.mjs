@@ -49,18 +49,14 @@ class WebGLCarouselItem {
     // Fix for gap issue 1/11/2021
     this.ratio.x = width / w;
     this.ratio.y = height / h + this.heightOffset;
-
-    carousel.renderer.setSize(
-      carousel.width,
-      carousel.height + this.heightOffset
-    );
   }
 }
 
 class WebGLCarousel extends Rect {
-  constructor(element) {
+  constructor(element, heightOffset = 0.02 * window.innerWidth) {
     super(element);
     this.element = element;
+    this.heightOffset = heightOffset;
   }
 
   init() {
@@ -232,12 +228,7 @@ class WebGLCarousel extends Rect {
     this.items.forEach((item) => item.onResize());
 
     // Fix for gap issue 1/11/2021
-    carousel.renderer.setSize(
-      carousel.width,
-      carousel.height + this.heightOffset
-    );
-
-    this.renderer.setSize(this.width, this.height);
+    this.renderer.setSize(this.width, this.height + this.heightOffset);
   }
 }
 
