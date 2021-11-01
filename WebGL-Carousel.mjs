@@ -6,12 +6,14 @@ import { Mesh } from "https://unpkg.com/ogl@0.0.74/src/core/Mesh.js";
 import { Vec2 } from "https://unpkg.com/ogl@0.0.74/src/math/Vec2.js";
 
 class WebGLCarouselItem {
-  constructor(carousel, element) {
+  constructor(carousel, element, heightOffset = 0.02 * window.innerWidth) {
     this.element = element;
 
     this.carousel = carousel;
 
     this.ratio = new Vec2(1, 1);
+
+    this.heightOffset = heightOffset;
 
     const gl = this.carousel.renderer.gl;
     this.texture = new Texture(gl, {
@@ -45,12 +47,13 @@ class WebGLCarouselItem {
     const h = w / this.naturalRatio;
 
     // Fix for gap issue 1/11/2021
-    const paddingBottom = 0.02 * window.innerWidth;
-
     this.ratio.x = width / w;
-    this.ratio.y = height / h + paddingBottom;
+    this.ratio.y = height / h + this.heightOffset;
 
-    carousel.renderer.setSize(carousel.width, carousel.height + paddingBottom);
+    carousel.renderer.setSize(
+      carousel.width,
+      carousel.height + this.heightOffset
+    );
   }
 }
 
@@ -229,8 +232,10 @@ class WebGLCarousel extends Rect {
     this.items.forEach((item) => item.onResize());
 
     // Fix for gap issue 1/11/2021
-    const paddingBottom = 0.02 * window.innerWidth;
-    carousel.renderer.setSize(carousel.width, carousel.height + paddingBottom);
+    carousel.renderer.setSize(
+      carousel.width,
+      carousel.height + this.heightOffset
+    );
 
     this.renderer.setSize(this.width, this.height);
   }
